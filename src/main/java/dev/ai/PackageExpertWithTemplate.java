@@ -4,6 +4,7 @@ import dev.langchain4j.service.MemoryId;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
 import dev.langchain4j.service.V;
+import dev.langchain4j.service.guardrail.InputGuardrails;
 import io.quarkiverse.langchain4j.RegisterAiService;
 import io.quarkiverse.langchain4j.mcp.runtime.McpToolBox;
 
@@ -23,6 +24,7 @@ public interface PackageExpertWithTemplate {
     )
     @McpToolBox("booking-server")
     @UserMessage("Do what user is asking {message}. The user used for authentication is {userName}.")
+    @InputGuardrails(InjectionGuard.class) // <--- A Camada de Defesa
     String chat(
             @MemoryId String memoryId
             , String message
